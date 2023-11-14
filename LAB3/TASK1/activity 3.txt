@@ -1,0 +1,182 @@
+fun main() {
+    val favoriteActor = null
+    println(favoriteActor)
+}//output:null
+
+---
+
+fun main() {
+    var favoriteActor: String = "Beto Kusyairy"
+    println(favoriteActor)
+}//output:Beto Kusyairy
+
+---
+
+fun main() {
+    var favoriteActor: String = "Beto Kusyairy"
+    favoriteActor = null
+}//output:Null can not be a value of a non-null type String
+
+---
+
+fun main() {
+    var favoriteActor: String? = "Beto Kusyairy"
+    println(favoriteActor)
+
+    favoriteActor = null
+    println(favoriteActor)
+}//output:Beto Kusyairy
+//output:null
+
+---
+
+fun main() {
+    var number: Int? = 10
+    println(number)
+}//output:10
+
+---
+
+fun main() {
+    var number: Int? = 10
+    println(number)
+    
+    number = null
+}//output:10
+
+---
+
+fun main() {
+    var number: Int? = 10
+    println(number)
+    
+    number = null
+    println(number)
+}//output:10
+//output:null
+
+---
+
+fun main() {
+    var favoriteActor: String = "Beto Kusyairy"
+    println(favoriteActor.length)
+}//output:13
+
+---
+
+fun main() {
+    var favoriteActor: String? = "Beto Kusyairy"
+    println(favoriteActor.length)
+}//output:Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type String?
+
+---
+
+fun main() {
+    var favoriteActor: String? = "Beto Kusyairy"
+    println(favoriteActor?.length)
+}//output:13
+
+---
+
+fun main() {
+    var favoriteActor: String? = null
+    println(favoriteActor?.length)
+}//output:null
+
+---
+
+fun main() {
+    var favoriteActor: String? = "Beto Kusyairy"
+    println(favoriteActor!!.length)
+}//output:13
+
+---
+
+fun main() {
+    var favoriteActor: String? = null
+    println(favoriteActor!!.length)
+}//output:
+//Exception in thread "main" java.lang.NullPointerException
+ //at FileKt.main (File.kt:3) 
+ //at FileKt.main (File.kt:-1) 
+ //at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 (:-2) 
+
+---
+
+fun main() {
+    var favoriteActor: String? = "Beto Kusyairy"
+
+    if (favoriteActor != null) {
+      println("The number of characters in your favorite actor's name is ${favoriteActor.length}.")
+    }
+}//output:The number of characters in your favorite actor's name is 13.
+
+---
+
+fun main() {
+    var favoriteActor: String? = "Beto Kusyairy"
+
+    if (favoriteActor != null) {
+      println("The number of characters in your favorite actor's name is ${favoriteActor.length}.")
+    } else {
+      println("You didn't input a name.")
+    }
+}//output:The number of characters in your favorite actor's name is 13.
+
+---
+
+fun main() {
+    var favoriteActor: String? = null
+
+    if(favoriteActor != null) {
+      println("The number of characters in your favorite actor's name is ${favoriteActor.length}.")
+    } else {
+      println("You didn't input a name.")
+    }
+}//output:You didn't input a name.
+
+---
+
+fun main() {
+    var favoriteActor: String? = "Beto Kusyairy"
+
+    val lengthOfName = if (favoriteActor != null) {
+      println("The number of characters in your favorite actor's name is ${favoriteActor.length}.")
+    } else {
+      println("You didn't input a name.")
+    }
+}//The number of characters in your favorite actor's name is 13.
+
+---
+
+fun main() {
+    var favoriteActor: String? = "Beto Kusyairy"
+
+    val lengthOfName = if (favoriteActor != null) {
+      favoriteActor.length
+    } else {
+      0
+    }
+
+    println("The number of characters in your favorite actor's name is $lengthOfName.")
+}//The number of characters in your favorite actor's name is 13.
+
+---
+
+fun main() {
+   var favoriteActor: String? = "Beto Kusyairy"
+
+    val lengthOfName = favoriteActor?.length
+
+    println("The number of characters in your favorite actor's name is $lengthOfName.")
+}//The number of characters in your favorite actor's name is 13.
+
+---
+
+fun main() {
+    var favoriteActor: String? = "Beto Kusyairy"
+
+    val lengthOfName = favoriteActor?.length ?: 0
+
+    println("The number of characters in your favorite actor's name is $lengthOfName.")
+}//The number of characters in your favorite actor's name is 13.

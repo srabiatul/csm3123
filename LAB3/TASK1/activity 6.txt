@@ -1,0 +1,227 @@
+fun main() {
+    val morningNotification = 51
+    val eveningNotification = 135
+    
+    printNotificationSummary(morningNotification)
+    printNotificationSummary(eveningNotification)
+}
+
+
+fun printNotificationSummary(numberOfMessages: Int) {
+    println("You have $numberOfMessages notifications.")
+    
+    if (numberOfMessages > 99) {
+        println("Your phone is blowing up! You have 99+ notifications.")
+    }
+}//output:
+//You have 51 notifications.
+//You have 135 notifications.
+//Your phone is blowing up! You have 99+ notifications.
+
+---
+
+fun main() {
+    val child = 5
+    val adult = 28
+    val senior = 87
+    
+    val isMonday = true
+    
+    println("The movie ticket price for a person aged $child is \$${ticketPrice(child, isMonday)}.")
+    println("The movie ticket price for a person aged $adult is \$${ticketPrice(adult, isMonday)}.")
+    println("The movie ticket price for a person aged $senior is \$${ticketPrice(senior, isMonday)}.")
+}
+
+fun ticketPrice(age: Int, isMonday: Boolean): Int {
+    val basePrice: Int
+
+    when {
+        age < 5 -> basePrice = 0
+        age in 5..17 -> basePrice = 15
+        age in 18..64 -> basePrice = 25
+        age >= 65 -> basePrice = 20
+        else -> basePrice = 0
+    }
+
+    return basePrice
+}//output:
+//The movie ticket price for a person aged 5 is $15.
+//The movie ticket price for a person aged 28 is $25.
+//The movie ticket price for a person aged 87 is $20.
+
+---
+
+fun main() {
+    printFinalTemperature(27.0, "Celsius", "Fahrenheit") { celsiusToFarhenheit(it) }
+    printFinalTemperature(350.0, "Kelvin", "Celsius") { kelvinToCelsius(it) }
+    printFinalTemperature(10.0, "Fahrenheit", "Kelvin") { farhenheitToKelvin(it) }
+}
+
+fun celsiusToFarhenheit(celsius: Double): Double {
+    return celsius * 9 / 5 + 32
+}
+
+fun kelvinToCelsius(kelvin: Double): Double {
+    return kelvin - 273.15
+}
+
+fun farhenheitToKelvin(fahrenheit: Double): Double {
+    return (fahrenheit + 459.67) * 5 / 9
+}
+
+fun printFinalTemperature(
+    initialMeasurement: Double, 
+    initialUnit: String, 
+    finalUnit: String, 
+    conversionFormula: (Double) -> Double
+) {
+    val finalMeasurement = String.format("%.2f", conversionFormula(initialMeasurement)) // two decimal places
+    println("$initialMeasurement degrees $initialUnit is $finalMeasurement degrees $finalUnit.")
+}
+//output:
+//27.0 degrees Celsius is 80.60 degrees Fahrenheit.
+//350.0 degrees Kelvin is 76.85 degrees Celsius.
+//10.0 degrees Fahrenheit is 260.93 degrees Kelvin.
+
+---
+
+class Song(
+    val title: String,
+    val artist: String,
+    val yearPublished: Int,
+    val playCount: Int
+) {
+    val isPopular: Boolean
+        get() = playCount >= 1000
+
+    fun printSongDescription() {
+        println("$title, performed by $artist, was released in $yearPublished.")
+    }
+}
+
+fun main() {
+    val mySong = Song("Holiday", "KSI", 2021, 10000000)
+    mySong.printSongDescription()
+    println("Is the song popular? ${if (mySong.isPopular) "Yes" else "No"}")
+}//output:
+//Holiday, performed by KSI, was released in 2021.
+//Is the song popular? Yes
+
+---
+
+fun main() {    
+    val amanda = Person("Amanda", 33, "play tennis", null)
+    val atiqah = Person("Atiqah", 28, "climb", amanda)
+    
+    amanda.showProfile()
+    atiqah.showProfile()
+}
+
+
+class Person(val name: String, val age: Int, val hobby: String?, val referrer: Person?) {
+    fun showProfile() {
+    println("Name: $name")
+    println("Age: $age")
+    
+    val hobbyDescription = if (hobby != null) "Likes to $hobby." else "Doesn't have a specific hobby."
+    val referrerDescription = referrer?.let {
+        "Has a referrer named ${it.name}, who likes to ${it.hobby ?: "do various activities"}."
+    } ?: "Doesn't have a referrer."
+    
+    println("$hobbyDescription $referrerDescription")
+    println()
+}
+}//output:
+//Name: Amanda
+//Age: 33
+//Likes to play tennis. Doesn't have a referrer.
+
+//Name: Atiqah
+//Age: 28
+//Likes to climb. Has a referrer named Amanda, who likes to play tennis.
+
+---
+
+open class Phone(var isScreenLightOn: Boolean = false) {
+    open fun switchOn() {
+        isScreenLightOn = true
+    }
+
+    fun switchOff() {
+        isScreenLightOn = false
+    }
+
+    fun checkPhoneScreenLight() {
+        val phoneScreenLight = if (isScreenLightOn) "on" else "off"
+        println("The phone screen's light is $phoneScreenLight.")
+    }
+}
+
+class FoldablePhone(var isFolded: Boolean = false, isScreenLightOn: Boolean = false) : Phone(isScreenLightOn) {
+
+    override fun switchOn() {
+        if (!isFolded) {
+            super.switchOn()
+            println("Main inner screen is turned on.")
+        } else {
+            println("Cannot turn on the screen when the phone is folded.")
+        }
+    }
+
+    fun fold() {
+        isFolded = true
+        println("The phone is folded.")
+    }
+
+    fun unfold() {
+        isFolded = false
+        println("The phone is unfolded.")
+    }
+}
+
+fun main() {
+    val foldablePhone = FoldablePhone()
+
+    foldablePhone.switchOn()
+    foldablePhone.checkPhoneScreenLight()
+
+    foldablePhone.fold()
+    foldablePhone.switchOn()
+
+    foldablePhone.unfold()
+    foldablePhone.switchOn()
+    foldablePhone.checkPhoneScreenLight()
+}//output:
+//Main inner screen is turned on.
+//The phone screen's light is on.
+//The phone is folded.
+//Cannot turn on the screen when the phone is folded.
+//The phone is unfolded.
+//Main inner screen is turned on.
+//The phone screen's light is on.
+
+---
+
+fun main() {
+    val winningBid = Bid(5000, "Private Collector")
+    
+    println("Item A is sold at ${auctionPrice(winningBid, 2000)}.")
+    println("Item B is sold at ${auctionPrice(null, 3000)}.")
+}
+
+class Bid(val amount: Int, val bidder: String)
+ 
+fun auctionPrice(bid: Bid?, minimumPrice: Int): Int {
+    return bid?.let {
+        if (it.amount >= minimumPrice) {
+            it.amount
+        } else {
+            minimumPrice
+        }
+    } ?: minimumPrice
+}//output:
+//Item A is sold at 5000.
+//Item B is sold at 3000.
+
+---
+
